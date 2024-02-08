@@ -1,0 +1,358 @@
+@media screen and (orientation: portrait) {
+  body.yellowUpApp.video {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--i-yellowUp-bg-color);
+    $aside-width: 5rem;
+    $aside-padding-x-width: 2px;
+    $topbar-height: 42px;
+    $tagbar-width: 5rem;
+    $router-width: 2rem;
+    @apply transition-colors;
+    @mixin useLayout {
+      border: none !important;
+      padding: 0% !important;
+    }
+    @mixin useMain($width) {
+      @include useLayout;
+      width: 100% !important;
+    }
+    @mixin useColor($color: var(--i-yellowUp-color)) {
+      color: var(--i-yellowUp-color) !important;
+      border-color: var(--i-yellowUp-color) !important;
+    }
+    @mixin useColorChange {
+      &:hover *,
+      &:hover {
+        background-color: var(--i-yellowUp-color) !important;
+        color: var(--i-yellowUp-bg-color) !important;
+      }
+    }
+    @mixin main {
+      position: fixed;
+      right: 0%;
+      @include useMain(100vw);
+      height: 100vh !important;
+      overflow-x: hidden !important;
+      background-color: var(--i-yellowUp-bg-color);
+      padding: 0% !important;
+    }
+    & * {
+      @apply transition-colors;
+    }
+    & > .vwbg > a,
+    & .myft,
+    & .myfto {
+      display: none;
+    }
+    & .mebty {
+      height: 100%;
+      width: 100%;
+      overflow-y: auto;
+      table {
+        & tr {
+          td {
+            @include useColorChange;
+          }
+        }
+        font-size: 16px;
+        & * {
+          color: var(--i-yellowUp-color) !important;
+          background-color: var(--i-yellowUp-bg-color);
+          border: none;
+        }
+        border: none;
+      }
+    }
+    & .nav {
+      //menu
+      @include useLayout;
+      width: 100%;
+      padding: 0px !important;
+      & .wrap,
+      & p {
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+        width: 100%;
+        background-color: var(--i-yellowUp-bg-color);
+        border-right: solid 1px var(--i-yellowUp-color) !important;
+        padding-left: $aside-padding-x-width;
+        padding-right: $aside-padding-x-width;
+        @mixin button {
+          display: block;
+          height: 1.7rem;
+          line-height: 1.6rem;
+          border-radius: 2px;
+          font-size: 0.7rem;
+          text-align: center;
+          font-weight: normal;
+          font-style: normal;
+          box-sizing: border-box;
+          @apply w-1/5;
+          float: left;
+          margin-left: 0;
+          margin-bottom: 9px;
+          margin: 0%;
+          margin-top: 10px;
+          background-color: var(--i-yellowUp-bg-color);
+          color: var(--i-yellowUp-color);
+          border: solid 1px var(--i-yellowUp-color);
+          @apply transition-colors;
+        }
+        & a,
+        & label {
+          @include button;
+          @include useColorChange;
+          & label {
+            background-color: transparent;
+            border: none !important;
+            border-color: transparent;
+            border-width: 0px !important;
+          }
+          input {
+            width: 0px;
+            &::before {
+              // content: "标签";
+              @include button;
+              display: flex;
+              border-radius: 2px;
+              position: absolute;
+              left: 0%;
+              transform: translateY(calc(-50% - 3px)) !important;
+              justify-content: center;
+              align-items: center;
+              @apply transition-colors;
+            }
+          }
+          input:checked {
+            // display: none;
+            &::before {
+              // content: "标签";
+              display: flex;
+              border-radius: 2px;
+              position: absolute;
+              left: 0%;
+              transform: translateY(calc(-50% - 3px));
+              background-color: var(--i-yellowUp-color);
+              color: var(--i-yellowUp-bg-color);
+              justify-content: center;
+              font-size: 0.7rem;
+              align-items: center;
+              @apply transition-colors;
+            }
+          }
+        }
+      }
+    }
+    & .srh {
+      @include useLayout;
+      $mx: 2.5%;
+      margin-bottom: 5px;
+      width: calc(100% - $mx - $mx);
+      background-color: transparent;
+      margin-left: $mx !important;
+      margin-right: $mx !important;
+      & .keywd {
+        background-color: transparent;
+        color: var(--i-yellowUp-text-color);
+        border: 1px solid;
+        @include useColor();
+        backdrop-filter: blur(2px);
+        width: 80%;
+      }
+      & button {
+        width: 19%;
+        background: var(--i-yellowUp-color);
+        @include useColor;
+        @include useColorChange();
+        border: 1px solid;
+        border-radius: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1%;
+      }
+    }
+    & .mypageuu,
+    .mypage {
+      //topbar
+      height: $topbar-height !important;
+      border: none !important;
+      @include useLayout;
+      width: calc(100% - $aside-padding-x-width - $aside-padding-x-width);
+      max-width: 100%;
+      background: transparent !important;
+      backdrop-filter: blur(2px);
+      border-radius: 10px;
+      margin-left: $aside-padding-x-width !important;
+      margin-right: $aside-padding-x-width !important;
+      & > a {
+        @include useColor;
+        @include useColorChange;
+        width: auto !important;
+        $padding-x: 0.25rem;
+        padding-left: $padding-x;
+        padding-right: $padding-x;
+        margin-right: 10px !important;
+        &:last-child {
+          margin-right: 0px !important;
+        }
+      }
+    }
+    & .div1 {
+      width: 100%;
+      height: 100vh;
+      padding-left: calc($aside-padding-x-width / 2);
+      padding-right: calc($aside-padding-x-width / 2);
+      border-right: 1px solid var(--i-yellowUp-color);
+      z-index: 3000;
+      .mycate {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        & > a {
+          @include useColor;
+          @include useColorChange;
+          width: auto !important;
+          $padding-x: 0.5rem;
+          padding-left: $padding-x;
+          padding-right: $padding-x;
+          margin-right: 0px !important;
+          &:last-child {
+            margin-right: 0px !important;
+          }
+        }
+        &:first-child {
+          padding-top: 10px;
+        }
+        height: auto;
+      }
+      z-index: 1000;
+      overflow-y: auto;
+      background-color: var(--i-yellowUp-bg-color);
+    }
+    .tags-box{
+      *{
+        color: var(--i-yellowUp-color);
+        background-color: var(--i-yellowUp-bg-color);
+        
+      }
+    }
+    @mixin menu {
+      border: none !important;
+      width: 100%;
+      border: none !important;
+      padding: 0% !important;
+      background-color: var(--i-yellowUp-bg-color) !important;
+      & a {
+        border-radius: 10px;
+        @content;
+        background-color: transparent;
+        border: solid var(--i-yellowUp-color) 1px;
+        color: var(--i-yellowUp-text-color);
+        $margin-x: 10px;
+        margin-left: $margin-x;
+        margin-right: $margin-x;
+        height: fit-content;
+        backdrop-filter: blur(2px);
+        width: calc(100% - $margin-x - $margin-x - $margin-x - $margin-x);
+      }
+    }
+
+    #change-video-line {
+      display: block;
+      background-color: transparent;
+      display: block;
+      margin-bottom: 0.5rem;
+      padding: 2.5%;
+      font-size: 0.8rem;
+      border-radius: 10px;
+      background-color: transparent;
+      border: solid var(--i-yellowUp-color) 1px;
+      color: var(--i-yellowUp-text-color);
+      $margin-x: 10px;
+      margin-left: $margin-x;
+      margin-right: $margin-x;
+      height: fit-content;
+      backdrop-filter: blur(2px);
+      width: calc(100% - $margin-x - $margin-x - $margin-x - $margin-x);
+    }
+    & .mymenu {
+      &.header-menu {
+        @include menu {
+          cursor: default;
+          margin-top: 0.5rem;
+        }
+      }
+    }
+    & .main {
+      background-color: var(--i-yellowUp-bg-color);
+      .wrap .vwpp .vodbox p {
+        color: var(--i-yellowUp-text-color);
+      }
+    }
+    & .mycates{
+      * {
+        border-color: var(--i-yellowUp-color);
+        color: var(--i-yellowUp-color);
+        background-color: var(--i-yellowUp-bg-color);
+      }
+        background-color: var(--i-yellowUp-bg-color);
+    }
+    & .mymenua {
+      display: block;
+      background-color: transparent;
+      margin-top: 0.5rem;
+      @include menu {
+        display: none;
+        &:last-child {
+          display: block;
+          // width: 100%;
+          padding: 2.5%;
+          font-size: 0.8rem;
+        }
+      }
+    }
+    & .myplayer {
+      background-color: var(--i-yellowUp-bg-color);
+    }
+    & .myplayer {
+      border: none;
+      margin-top: 20px;
+    }
+    & .uzsrhm {
+      padding: 0%;
+      width: 100%;
+      padding-left: $aside-padding-x-width;
+      padding-right: $aside-padding-x-width;
+      display: flex;
+      background: transparent;
+      margin-bottom: 1rem;
+      & input[name="page"] {
+        width: 90%;
+        margin-right: 2px;
+        background: transparent;
+        @include useColor;
+        backdrop-filter: blur(2px);
+        border: 1px solid;
+        border-radius: 2px;
+      }
+      & button {
+        width: 10%;
+        background: var(--i-yellowUp-color);
+        @include useColor;
+        @include useColorChange();
+        border: 1px solid;
+        border-radius: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}

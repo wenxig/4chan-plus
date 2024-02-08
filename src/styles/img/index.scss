@@ -1,0 +1,193 @@
+@media screen and (orientation: landscape) {
+  body.yellowUpApp.image {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    & * {
+      @apply transition-colors;
+    }
+    & > .vwbg > a,
+    & .myft {
+      display: none;
+    }
+    @mixin useColorChange {
+      &:hover *,
+      &:hover {
+        background-color: var(--i-yellowUp-color) !important;
+        color: var(--i-yellowUp-bg-color) !important;
+      }
+    }
+    $router-width: 2rem;
+    & .mebty {
+      height: 100%;
+      width: $router-width;
+      position: fixed;
+      z-index: 3000;
+      left: 0%;
+      overflow-y: auto;
+      table {
+        & tr {
+          display: flex;
+          flex-direction: column;
+          td {
+            @include useColorChange;
+          }
+        }
+        font-size: 16px;
+        & * {
+          color: var(--i-yellowUp-color) !important;
+          background-color: var(--i-yellowUp-bg-color);
+          border: none;
+        }
+        border: none;
+        border-right: 1px var(--i-yellowUp-color) solid;
+      }
+    }
+    top: 0%;
+    $aside-width: 5rem;
+    $aside-padding-x-width: 20px;
+    @mixin useLayout {
+      border: none !important;
+      padding: 0% !important;
+    }
+    @mixin useMain($width) {
+      @include useLayout;
+      width: width($width) !important;
+    }
+    @mixin useColor($color: var(--i-yellowUp-color)) {
+      color: var(--i-yellowUp-color) !important;
+      border-color: var(--i-yellowUp-color) !important;
+    }
+    @function left($left) {
+      @return calc($aside-width + $left + $router-width + $aside-padding-x-width);
+    }
+    @function width($width) {
+      @return calc($width - $aside-width - $router-width - $aside-padding-x-width);
+    }
+    & .mycate {
+      //menu
+      position: fixed;
+      @include useLayout;
+      left: $router-width;
+      top: 0;
+      width: $aside-width;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-left: calc($aside-padding-x-width / 2) !important;
+      padding-right: calc($aside-padding-x-width / 2 - 1px) !important;
+      background-color: var(--i-yellowUp-bg-color);
+      border-right: solid 1px var(--i-yellowUp-color) !important;
+      overflow-y: auto;
+      & > a {
+        width: 100%;
+        margin: 0%;
+        margin-top: 10px;
+        @include useColor;
+        @include useColorChange;
+      }
+    }
+
+    $topbar-height: 42px;
+    & .mypageuu,
+    .mypage {
+      //topbar
+      position: fixed;
+      top: 0;
+      left: left(2px);
+      height: $topbar-height !important;
+      border: none !important;
+      @include useLayout;
+      width: auto !important;
+      background: transparent !important;
+      backdrop-filter: blur(2px);
+      border-radius: 10px;
+      & > a {
+        @include useColor;
+        @include useColorChange;
+        width: auto !important;
+        $padding-x: 0.5rem;
+        padding-left: $padding-x;
+        padding-right: $padding-x;
+        margin-right: 10px !important;
+        &:last-child {
+          margin-right: 0px !important;
+        }
+      }
+    }
+
+    @mixin main {
+      position: fixed;
+      right: 0%;
+      @include useMain(100vw);
+      height: 100vh !important;
+      overflow-x: hidden !important;
+      background-color: var(--i-yellowUp-bg-color);
+      padding: 0% !important;
+    }
+    &.select-image .myvod {
+      display: flex;
+      justify-content: center;
+      //main
+      @include main;
+      & ul {
+        & li {
+          width: 9rem;
+          display: grid;
+          margin: 2px;
+        }
+        & a {
+          color: var(--i-yellowUp-text-color) !important;
+        }
+      }
+    }
+    &.watch-image .myvod {
+      @include main;
+      & > img {
+        max-height: 100vh;
+      }
+      display: grid;
+      justify-items: center;
+    }
+    & .mymenu {
+      @mixin menu {
+        position: fixed;
+        top: 0;
+        height: $topbar-height !important;
+        border: none !important;
+        z-index: 10;
+        max-width: 50vw;
+        width: auto;
+        @include useLayout;
+        background-color: transparent !important;
+        & a {
+          $border-radius: 2rem;
+          border-bottom-left-radius: $border-radius;
+          border-bottom-right-radius: $border-radius;
+          @content;
+          background-color: transparent;
+          border: solid var(--i-yellowUp-color) 1px;
+          border-top: none;
+          color: var(--i-yellowUp-text-color);
+          $padding-x: 20px;
+          padding-left: $padding-x;
+          padding-right: $padding-x;
+          height: fit-content;
+          backdrop-filter: blur(2px);
+        }
+      }
+      &.header-menu {
+        @include menu {
+          cursor: default;
+        }
+        left: left(2px);
+      }
+      &.fooder-menu {
+        @include menu;
+        right: 0px;
+      }
+    }
+    
+  }
+}

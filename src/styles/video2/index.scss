@@ -1,0 +1,261 @@
+@media screen and (orientation: landscape) {
+  $aside-width: 5rem * 2;
+  $aside-padding-x-width: 20px;
+  $topbar-height: 42px;
+  $tagbar-width: 5rem * 2;
+  $router-width: 2rem * 2;
+  @function left($left) {
+    @return calc($aside-width + $left + $router-width + $aside-padding-x-width);
+  }
+  @function width($width) {
+    @return calc($width - $aside-width - $router-width - $aside-padding-x-width);
+  }
+  @mixin useLayout {
+    border: none !important;
+    padding: 0% !important;
+  }
+  @mixin useMain($width) {
+    @include useLayout;
+    width: width($width) !important;
+  }
+  @mixin main {
+    position: fixed;
+    right: 0%;
+    @include useMain(100vw);
+    height: 100vh !important;
+    overflow-x: hidden !important;
+    background-color: var(--i-yellowUp-bg-color);
+    padding: 0% !important;
+  }
+  @mixin useColor($color: var(--i-yellowUp-color)) {
+    color: var(--i-yellowUp-color) !important;
+    border-color: var(--i-yellowUp-color) !important;
+  }
+  @mixin useColorChange {
+    &:hover *,
+    &:hover {
+      background-color: var(--i-yellowUp-color) !important;
+      color: var(--i-yellowUp-bg-color) !important;
+    }
+  }
+  @mixin useInput{
+    &:focus{
+      background-color: var(--i-yellowUp-bg-color) !important;
+      color: var(--i-yellowUp-text-color) !important;
+    }
+  }
+  @mixin button {
+    display: block;
+    height: 1.7rem * 2;
+    line-height: 1.6rem * 2;
+    border-radius: 2px;
+    font-size: 0.7rem * 2;
+    text-align: center;
+    font-weight: normal;
+    font-style: normal;
+    box-sizing: border-box;
+    width: 11.1%;
+    float: left;
+    margin-left: 0;
+    margin-bottom: 9px;
+    width: 100%;
+    margin: 0%;
+    margin-bottom: 10px;
+    background-color: var(--i-yellowUp-bg-color);
+    color: var(--i-yellowUp-color);
+    border: solid 1px var(--i-yellowUp-color);
+    @apply transition-colors;
+  }
+  body.yellowUpApp.video2 {
+    @apply transition-colors;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--i-yellowUp-bg-color);
+    & * {
+      @apply transition-colors;
+    }
+    & > .vwbg > a,
+    & .myft,
+    & .myfto {
+      display: none;
+    }
+    & .mebty {
+      height: 100%;
+      width: $router-width;
+      position: fixed;
+      z-index: 3000;
+      left: 0%;
+      overflow-y: auto;
+      table {
+        & tr {
+          display: flex;
+          flex-direction: column;
+          td {
+            @include useColorChange;
+          }
+        }
+        font-size: 16px;
+        & * {
+          color: var(--i-yellowUp-color) !important;
+          background-color: var(--i-yellowUp-bg-color);
+          border: none;
+        }
+        border: none;
+        border-right: 1px var(--i-yellowUp-color) solid;
+      }
+    }
+    & .mymenua {
+      //menu
+      position: fixed !important;
+      @include useLayout;
+      left: $router-width;
+      top: 0 !important;
+      width: $aside-width !important;
+      height: 100vh;
+      overflow-y: auto;
+      padding-left: calc($aside-padding-x-width / 2) !important;
+      padding-right: calc($aside-padding-x-width / 2 - 1px) !important;
+      background-color: var(--i-yellowUp-bg-color);
+      border-right: solid 1px var(--i-yellowUp-color) !important;
+      display: block !important;
+      padding-top: 10px !important;
+      & a {
+        @include button;
+        @include useColorChange;
+      }
+    }
+    & .mysrh .uzsrh {
+      @include useLayout;
+      position: absolute;
+      width: 13rem * 2;
+      top: 46px;
+      z-index: 900;
+      left: left(2px);
+      background-color: transparent;
+      & input {
+        background-color: transparent;
+        color: var(--i-yellowUp-text-color);
+        border: 1px solid;
+        @include useColor();
+        backdrop-filter: blur(2px);
+        width: 80%;
+        @include useInput;
+      }
+      & button {
+        width: 19%;
+        background: var(--i-yellowUp-color);
+        @include useColor;
+        @include useColorChange();
+        border: 1px solid;
+        border-radius: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1%;
+      }
+    }
+    & .uzsrha {
+      padding: 0%;
+      position: fixed;
+      top: 0;
+      width: 5rem;
+      left: left(420px);
+      display: flex;
+      background: transparent;
+      & input[name="page"] {
+        width: 60%;
+        margin-right: 2px;
+        background: transparent;
+        @include useColor;
+        backdrop-filter: blur(2px);
+        border: 1px solid;
+        border-radius: 2px;
+        @include useInput;
+      }
+      & button {
+        width: 40%;
+        background: var(--i-yellowUp-color);
+        @include useColor;
+        @include useColorChange();
+        border: 1px solid;
+        border-radius: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    @for $i from 1 through 3 {
+      & .div#{$i} {
+        display: flex;
+        position: fixed !important;
+        left: calc(left($tagbar-width) - $tagbar-width - $aside-padding-x-width) !important;
+        width: $tagbar-width;
+        height: 100vh;
+        flex-direction: column;
+        padding-left: calc($aside-padding-x-width / 2);
+        padding-right: calc($aside-padding-x-width / 2);
+        border-right: 1px solid var(--i-yellowUp-color);
+        z-index: 3000;
+        .mymenuaub,
+        .mymenuauk {
+          padding-top: 10px !important;
+          display: flex;
+          flex-direction: column;
+          justify-items: center;
+          padding: 0;
+          background-color: transparent;
+          border: none;
+          padding-top: 5px;
+          & > a {
+            @include useColor;
+            @include useColorChange;
+            @include button();
+          }
+          &:first-child {
+            padding-top: 10px;
+          }
+          height: auto;
+        }
+        z-index: 1000;
+        overflow-y: auto;
+        background-color: var(--i-yellowUp-bg-color);
+      }
+    }
+    section {
+      width: width((100%));
+      position: fixed;
+      right: 0%;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    footer {
+      display: none;
+    }
+    & .paginationU {
+      //topbar
+      position: fixed;
+      top: 0;
+      left: left(2px);
+      height: $topbar-height !important;
+      border: none !important;
+      @include useLayout;
+      width: auto !important;
+      background: transparent !important;
+      backdrop-filter: blur(2px);
+      border-radius: 10px;
+      & a {
+        @include useColor;
+        @include useColorChange;
+        width: auto !important;
+        $padding-x: 0.5rem;
+        padding-left: $padding-x;
+        padding-right: $padding-x;
+        margin-right: 10px !important;
+        &:last-child {
+          margin-right: 0px !important;
+        }
+      }
+    }
+  }
+}
