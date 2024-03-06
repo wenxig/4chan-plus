@@ -1,40 +1,31 @@
 <script setup lang="ts">
-import { GM_getValue, GM_setValue } from '$';
-import { ref, watch } from 'vue';
-import jQuery from 'jquery';
-import Image from './page/image.vue';
-import Video from './page/video.vue';
-import Video2 from './page/video2.vue';
-import { useDraggable } from '@vueuse/core';
-const isLightTheme = ref<boolean>((GM_getValue('isLightTheme') ?? false))
-watch(isLightTheme, val => {
-  jQuery(document.body).toggleClass('light-mode', val)
-  GM_setValue('isLightTheme', val)
-}, { immediate: true })
+import { useAppStore } from '@/store';
+import { useScroll } from '@vueuse/core';
+import { groupBy } from 'lodash-es';
+const app = useAppStore()
 
-const isOnVideoPage = location.pathname.includes('vod/type') || location.pathname.includes('adk.php') || location.pathname.includes('/kk-tt.php') || location.pathname.includes('/vod/detail/id') || location.pathname.includes('/kkkss.php') || location.pathname.includes('avb.php') || location.pathname.includes('/abbc.php')
-const isOnVideoPage2 = isOnVideoPage ? false : !!jQuery('section>.items')[0]
-const themeChanegButton = ref<HTMLElement | null>(null)
-const { style } = useDraggable(themeChanegButton, {
-  initialValue: { x: window.innerWidth - 10 - 50, y: window.innerHeight - 10 - 50 },
-})
+const { y } = useScroll(document)
+
+const goto = (v: string) => window.location.href = v
+
 </script>
 
 <template>
-  <button :style="style" ref="themeChanegButton" type="button" class="theme-change" @click="isLightTheme = !isLightTheme">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" v-if="isLightTheme">
-      <path fill="currentColor"
-        d="M512 704a192 192 0 1 0 0-384 192 192 0 0 0 0 384m0 64a256 256 0 1 1 0-512 256 256 0 0 1 0 512m0-704a32 32 0 0 1 32 32v64a32 32 0 0 1-64 0V96a32 32 0 0 1 32-32m0 768a32 32 0 0 1 32 32v64a32 32 0 1 1-64 0v-64a32 32 0 0 1 32-32M195.2 195.2a32 32 0 0 1 45.248 0l45.248 45.248a32 32 0 1 1-45.248 45.248L195.2 240.448a32 32 0 0 1 0-45.248zm543.104 543.104a32 32 0 0 1 45.248 0l45.248 45.248a32 32 0 0 1-45.248 45.248l-45.248-45.248a32 32 0 0 1 0-45.248M64 512a32 32 0 0 1 32-32h64a32 32 0 0 1 0 64H96a32 32 0 0 1-32-32m768 0a32 32 0 0 1 32-32h64a32 32 0 1 1 0 64h-64a32 32 0 0 1-32-32M195.2 828.8a32 32 0 0 1 0-45.248l45.248-45.248a32 32 0 0 1 45.248 45.248L240.448 828.8a32 32 0 0 1-45.248 0zm543.104-543.104a32 32 0 0 1 0-45.248l45.248-45.248a32 32 0 0 1 45.248 45.248l-45.248 45.248a32 32 0 0 1-45.248 0">
-      </path>
-    </svg>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" v-else>
-      <path fill="currentColor"
-        d="M240.448 240.448a384 384 0 1 0 559.424 525.696 448 448 0 0 1-542.016-542.08 390.592 390.592 0 0 0-17.408 16.384zm181.056 362.048a384 384 0 0 0 525.632 16.384A448 448 0 1 1 405.056 76.8a384 384 0 0 0 16.448 525.696">
-      </path>
-    </svg>
-  </button>
-  <Image v-if="!isOnVideoPage && !isOnVideoPage2" />
-  <Video v-if="isOnVideoPage" />
-  <Video2 v-if="isOnVideoPage2" />
+  <img class="pointer-events-none fixed top-0 left-0 w-full h-full object-cover z-[-1]"
+    src="@/assets/background.jpg?inline">
+  <header
+    class="w-full h-[60px] z-50 flex bg-white items-center fixed left-0 top-0 duration-[0.5s] transition-colors border-[--i-border-color]  border-[0px] border-b border-solid"
+    :class="y <= 5 && '!border-none bg-opacity-0'">
+    <div class="text-xl ml-3">{{ app.board.title }}</div>
+    <div x-scrollableiv class="absolute right-0 h-full flex items-center max-w-[50%] overflow-x-auto flex-nowrap">
+      <div v-for="group of groupBy(app.boardNav, 'group')"
+        class="flex bg-gray-300 rounded-lg bg-opacity-30 h-[90%] mr-1">
+        <button v-for="total of group" @click="goto(total.link)"
+          class="border-none bg-white bg-opacity-0 text-lg h-full px-3 transition-colors first:rounded-l-lg last:rounded-r-lg hover:bg-opacity-50 flex justify-center items-center active:bg-gray-300 active:bg-opacity-30">{{ total.text }}</button>
+      </div>
+    </div>
+  </header>
+  <main class="min-h-[100vh] w-full bg-white bg-opacity-55 py-[90px] pl-[5%]">
+    <RouterView />
+  </main>
 </template>
-

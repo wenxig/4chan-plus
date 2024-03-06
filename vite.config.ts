@@ -2,13 +2,13 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import monkey from 'vite-plugin-monkey';
 import { fileURLToPath, URL } from 'node:url'
-import { version, description, main, author } from './package.json';
+import package_json from './package.json';
 import legacyPlugin from '@vitejs/plugin-legacy'
 import postcssPresetEnv from 'postcss-preset-env'
 import tailwindcss from 'tailwindcss';
 import postCssPxToRem from "postcss-pxtorem";
 import autoprefixer from "autoprefixer";
-const baseUrl = ['*://**/*']
+const baseUrl = ['*://*.4chan.org/**/*']
 export default defineConfig(() => ({
   plugins: [
     vue(),
@@ -17,15 +17,12 @@ export default defineConfig(() => ({
       modernPolyfills: true,
     }),
     monkey({
-      entry: main,
+      entry: package_json.main,
       userscript: {
-        icon: 'https://img13.360buyimg.com/ddimg/jfs/t1/180015/34/30499/3188/635abb87E47815c6a/bdb7d18fcb5281a0.png',
-        namespace: 'wenxig/yellowUp',
+        ...package_json,
+        namespace: 'wenxig/4chan-plus',
         match: baseUrl,
-        description,
-        name: "黄色网站增强",
-        author,
-        "run-at": "document-end",
+        "run-at": "document-start",
         connect: "*"
       }
     }),
@@ -73,7 +70,7 @@ export default defineConfig(() => ({
     }
   },
   define: {
-    __APP_VERSION__: `"${version}"`
+    __APP_VERSION__: `"${package_json.version}"`
   }
 }));
 
