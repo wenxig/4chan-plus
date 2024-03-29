@@ -2,6 +2,7 @@
 import { useAppStore } from '@/store';
 import { useScroll } from '@vueuse/core';
 import { groupBy } from 'lodash-es';
+import { zhCN as nZhCn, dateZhCN as nDateZhCN } from 'naive-ui'
 const app = useAppStore()
 
 const { y } = useScroll(document)
@@ -25,7 +26,9 @@ const goto = (v: string) => window.location.href = v
       </div>
     </div>
   </header>
-  <main class="min-h-[100vh] w-full bg-white bg-opacity-55 py-[90px] pl-[5%]">
-    <RouterView />
-  </main>
+  <n-config-provider :locale="nZhCn" :date-locale="nDateZhCN" class="w-full min-h-full">
+    <main class="min-h-[100vh] w-full bg-white bg-opacity-55 py-[90px] pl-[5%]">
+      <RouterView />
+    </main>
+  </n-config-provider>
 </template>

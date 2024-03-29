@@ -52,20 +52,18 @@ export const useAppStore = defineStore('app', () => {
     date: new Date(jQuery(`#${id} .dateTime`)[0].innerText.replace(/\s.*/g, '')),
     id: id.match(/\d+/g)![0],
     from: jQuery(jQuery(`#${id} .postInfo span.name`)[0]).text(),
-    reply: map(jQuery(`#${id} .replyContainer`), ({ id }) => {
-      return {
-        title: '',
-        main: jQuery(`#${id} .postMessage`).html(),
-        cover_perview: jQuery(`#${id} .fileThumb img`).attr('src') || '',
-        cover: jQuery(`#${id} a.fileThumb`).attr('href'),
-        isSticky: false,
-        isClosed: false,
-        date: new Date(jQuery(`#${id} .dateTime`)[0].innerText.replace(/\s.*/g, '')),
-        id: id.match(/\d+/g)![0],
-        from: jQuery(jQuery(`#${id} .postInfo span.name`)[0]).text(),
-        reply: []
-      } as Thread
-    })
+    reply: map(jQuery(`#${id} .replyContainer`), ({ id }) => ({
+      title: '',
+      main: jQuery(`#${id} .postMessage`).html(),
+      cover_perview: jQuery(`#${id} .fileThumb img`).attr('src') || '',
+      cover: jQuery(`#${id} a.fileThumb`).attr('href'),
+      isSticky: false,
+      isClosed: false,
+      date: new Date(jQuery(`#${id} .dateTime`)[0].innerText.replace(/\s.*/g, '')),
+      id: id.match(/\d+/g)![0],
+      from: jQuery(jQuery(`#${id} .postInfo span.name`)[0]).text(),
+      reply: []
+    } as Thread))
   }))
   return { boardNav, board, threads }
 })

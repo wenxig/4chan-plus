@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import monkey from 'vite-plugin-monkey';
+//@ts-ignore
 import { fileURLToPath, URL } from 'node:url'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import {  NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import package_json from './package.json';
 import legacyPlugin from '@vitejs/plugin-legacy'
 import postcssPresetEnv from 'postcss-preset-env'
@@ -15,6 +19,16 @@ export default defineConfig(() => ({
     legacyPlugin({
       renderLegacyChunks: false,
       modernPolyfills: true,
+    }),
+    AutoImport({
+      resolvers: [
+        NaiveUiResolver(),
+      ],
+    }),
+    Components({
+      resolvers: [
+        NaiveUiResolver(),
+      ],
     }),
     monkey({
       entry: package_json.main,
